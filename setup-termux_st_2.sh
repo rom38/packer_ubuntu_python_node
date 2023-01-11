@@ -5,20 +5,22 @@
 # apt-get  install --yes --no-install-recommends curl
 
 
-PACKAGES=" gnupg lzip unzip jq curl curl neovim python3-neovim git tar openssl rsync bash-completion wget \
-autoconf autogen automake autopoint bison flex g++ g++-multilib gawk gettext gperf intltool libglib2.0-dev libltdl-dev libtool-bin m4 \
-pkg-config scons help2man libtool make pkg-config texinfo ncdu htop lua5.2 lua5.3 python3-pip make build-essential \
-libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev"
+PACKAGES=" gnupg lzip unzip jq curl curl neovim python3-neovim git tar openssl \
+rsync bash-completion wget autoconf autogen automake autopoint bison flex g++ \
+g++-multilib gawk gettext gperf intltool libglib2.0-dev libltdl-dev libtool-bin \
+m4 pkg-config scons help2man libtool make pkg-config texinfo ncdu htop lua5.2 \
+lua5.3 python3-pip make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev \
+libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev"
 
 # # Tier 1: requirements for the core build scripts in scripts/build/.
-# # PACKAGES+=" clang"				# Required for termux-elf-cleaner and C/C++ packages.
-# PACKAGES+=" gnupg"				# Used in termux_get_repo_files() and build-package.sh.
-# PACKAGES+=" lzip"				# Used by tar to extract *.tar.lz source archives.
-# # PACKAGES+=" patch"				# Used for applying patches on source code.
-# # PACKAGES+=" python"				# Used buildorder.py core script.
-# PACKAGES+=" unzip"				# Used to extract *.zip source archives.
-# PACKAGES+=" jq"					# Used for parsing repo.json.
+# # PACKAGES+=" clang"      # Required for termux-elf-cleaner and C/C++ packages.
+# PACKAGES+=" gnupg"        # Used in termux_get_repo_files() and build-package.sh.
+# PACKAGES+=" lzip"         # Used by tar to extract *.tar.lz source archives.
+# # PACKAGES+=" patch"      # Used for applying patches on source code.
+# # PACKAGES+=" python"     # Used buildorder.py core script.
+# PACKAGES+=" unzip"        # Used to extract *.zip source archives.
+# PACKAGES+=" jq"           # Used for parsing repo.json.
 # PACKAGES+=" curl"
 # PACKAGES+=" neovim"
 # PACKAGES+=" python3-neovim"
@@ -56,8 +58,8 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 # PACKAGES+=" help2man"
 # PACKAGES+=" libtool"
 # PACKAGES+=" m4"
-# PACKAGES+=" make"			# Used for all Makefile-based projects.
-# PACKAGES+=" ninja"			# Used by default to build all CMake projects.
+# PACKAGES+=" make"            # Used for all Makefile-based projects.
+# PACKAGES+=" ninja"           # Used by default to build all CMake projects.
 # # PACKAGES+=" perl"
 # PACKAGES+=" pkg-config"
 # PACKAGES+=" protobuf"
@@ -76,8 +78,8 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 # PACKAGES+=" lua5.3"
 
 # # pyenv
-# PACKAGES+=" python3-pip make build-essential libssl-dev zlib1g-dev" 
-# PACKAGES+=" libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm" 
+# PACKAGES+=" python3-pip make build-essential libssl-dev zlib1g-dev"
+# PACKAGES+=" libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm"
 # PACKAGES+=" ibncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev"
 
 #apt-get -y update
@@ -112,10 +114,10 @@ chown vagrant:vagrant $HOME_DIR/.nvm/nvm-lazy.sh
 # install github cli
 
 #type -p curl >/dev/null || sudo apt install curl -y
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 
-chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg 
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
-apt update 
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+apt update
 apt install gh -y
 
 
@@ -134,12 +136,12 @@ export PYENV_ROOT="$HOME_DIR/.pyenv"
             # libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
             # libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
     # Install PYENV
-curl -fsSL https://pyenv.run | bash 
-pyenv update 
-pyenv install ${PYTHON_VERSION} 
-pyenv global ${PYTHON_VERSION} 
+curl -fsSL https://pyenv.run | bash
+pyenv update
+pyenv install ${PYTHON_VERSION}
+pyenv global ${PYTHON_VERSION}
 # Install additional python packages
-python3 -m pip install --no-cache-dir --upgrade pip 
+python3 -m pip install --no-cache-dir --upgrade pip
 rm -rf /tmp/*
 
 
@@ -168,7 +170,7 @@ curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
 
 apt-get update
-apt-get -y install redis 
+apt-get -y install redis
 
 
 #################################
@@ -183,7 +185,7 @@ systemctl stop snapd
 apt remove --purge --assume-yes snapd gnome-software-plugin-snap
 rm -rf ~/snap
 rm -rf /snap
-rm -rf /var/cache/snapd 
+rm -rf /var/cache/snapd
 rm -rf /var/snap
 rm -rf /var/lib/snapd
 rm -rf /usr/lib/snapd
@@ -232,4 +234,4 @@ rm -f /var/lib/systemd/random-seed
 
 echo "clear the history so our install isn't there"
 rm -f /root/.wget-hsts
-export HISTSIZE=0 
+export HISTSIZE=0

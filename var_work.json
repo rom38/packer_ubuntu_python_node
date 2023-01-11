@@ -1,0 +1,5 @@
+{
+    "box_basename": "ubuntu-20.04_pyenv_nvm",
+    "build_directory": "c:/builds",
+    "source_name": "../builds/packer-ubuntu-20.04-amd64-virtualbox/ubuntu-20.04-amd64.ovf"
+}
